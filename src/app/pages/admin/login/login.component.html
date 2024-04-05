@@ -1,0 +1,13 @@
+<form class="container">
+    <h1>Login</h1>
+    <div class="usercred">
+        <input type="text" placeholder="Username"  name="username" [(ngModel)]="loginObj.username">
+        <input type="password" placeholder="Password" name="password" [(ngModel)]="loginObj.password">
+    </div>
+    <div class="check">
+        <label for="checkbox">Remember me</label>
+        <input type="checkbox" id="checkbox">
+        <hr>
+        <input class="btn btn-primary" type="button" value="Login" (click)="onlogin()">
+    </div>
+</form>

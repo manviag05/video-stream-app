@@ -1,0 +1,120 @@
+<form id="sheetdb-form" (ngSubmit)="submitForm()">
+<div class="row">
+    <div [ngClass]="isSidePanelVisible ? 'col-8':'col-12'">
+        <div class="card">
+            <div class="card-header bg-primary">
+                <div class="row">
+                    <div class="col-6">
+                        Product List
+                    </div>
+                    <div class="col-6 text-end" >
+                       <button class="btn btn-sm btn-success" (click)="showAddProduct()">New</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                <div class="col-3">
+                    <div class="card" style="width:400px">
+                        <img class="card-img-top" src="img_avatar1.png" alt="Card image">
+                        <div class="card-body">
+                          <h4 class="card-title">John Doe</h4>
+                          <p class="card-text">Some example text.</p>
+                          <a href="#" class="btn btn-primary">See Profile</a>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-3">
+                    <div class="card" style="width:400px">
+                        <img class="card-img-top" src="img_avatar1.png" alt="Card image">
+                        <div class="card-body">
+                          <h4 class="card-title">John Doe</h4>
+                          <p class="card-text">Some example text.</p>
+                          <a href="#" class="btn btn-primary">See Profile</a>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-3">
+                    <div class="card">
+                        <img class="card-img-top" src="img_avatar1.png" alt="Card image">
+                        <div class="card-body">
+                          <h4 class="card-title">John Doe</h4>
+                          <p class="card-text">Some example text.</p>
+                          <a href="#" class="btn btn-primary">See Profile</a>
+                        </div>
+                      </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-4" *ngIf="isSidePanelVisible">
+        <div class="card">
+            <div class="card-header bg-primary">
+                <div class="row">
+                    <div class="col-6">
+                        New Product
+                    </div>
+                    <div class="col-6 text-end">
+                       <button class="btn btn-sm btn-success" (click)="hideAddProduct()">Close</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="col-6">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" [(ngModel)]="productObj.name" class="form-control">
+                </div>
+                <!-- <div class="col-6">
+                    <label for="">Title</label>
+                    <input type="text" [(ngModel)]="productObj.productName" class="form-control">
+                </div> -->
+                <div class="col-6">
+                    <label for="price">Price</label>
+                    <input type="number" id="price" name="price" [(ngModel)]="productObj.productPrice" class="form-control">
+                </div>
+                <div class="col-6">
+                    <label for="image">Image Url</label>
+                    <input type="text" id="image" name="image" [(ngModel)]="productObj.productImageUrl" class="form-control">
+                </div> 
+                <div class="col-6">
+                    <label for="prodesc">Product Description</label>
+                    <input type="text" id="prodesc" name="prodesc" [(ngModel)]="productObj.description" class="form-control">
+                </div>
+                <div class="col-6">
+                    <!-- <label for="">Category</label>
+                    <select [(ngModel)]="productObj.title" class="form-select">
+                        <option *ngFor="let cate of categoryList">{{cate.title}}</option>
+                    </select>
+                    <button (click)="getAllCategory()">getcatt</button>
+                    <p>{{quote}}</p> -->
+
+
+                    <!-- <label for="">Category</label>
+                  <select  [(ngModel)]="productObj.title" class="form-control">
+                      <option *ngFor="let cate of categoryList">
+                           {{cate.title | json }}
+                      </option>
+                  </select> -->
+                    
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <button class="btn btn-success">
+                            Reset
+                        </button>
+                    </div>
+                    <div class="col-6" >
+                        <button class="btn btn-succes" type="submit">
+                            Create Product
+                        </button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+</div>
+</form>
