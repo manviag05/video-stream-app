@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../../services/product/product.service';
 import { HttpClient } from '@angular/common/http';
 
+
 @Component({
   selector: 'app-products',
   standalone: true,
@@ -13,25 +14,39 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ProductsComponent implements OnInit {
   isSidePanelVisible: boolean=false;
-
-   productObj:any ={
-     "productId":0,
-     "name":"",
+  productList: any[] = [];
+  sheetData: any[]=[];
+  users:any;
+  // productList$ = this.productService.fetchSheetData();
+  
+  productObj:any ={
+    "productId":0,
+    "name":"",
     "productName":"",
-    "productPrice":"",
-     "createdDate": new Date(),
-     "productImageUrl":"",
-     "description":"",
-     "id":0,
-     "title":""
+    "price":"",
+    "createdDate": new Date(),
+    "image":"",
+    "prodesc":"",
+    "id":0,
+    "title":""
   }
+  
+  //   categoryList: any[]=[];
+  // quote:string='';
+  
+  
+  constructor(private productService: ProductService , private http: HttpClient){
+    productService.users().subscribe((data:Object)=>{
+      
+      this.productList=data as any[];
+    });
 
-//   categoryList: any[]=[];
-// quote:string='';
-//   constructor(private productService: ProductService){}
+  }
 
    ngOnInit(): void {
     // this.getAllCategory();
+    //this.fetchData();
+   // this.fetchSheetData();
    }
 
 //   getAllCategory(){
@@ -52,29 +67,93 @@ export class ProductsComponent implements OnInit {
 //     })
 //   }
 
-constructor(private http: HttpClient) { }
 
-
-submitForm() {
-  const formData = new FormData();
-  formData.append('name', this.productObj.name);
-  formData.append('price', this.productObj.productPrice);
-  formData.append('image', this.productObj.productImageUrl);
-  formData.append('prodesc', this.productObj.description);
-
-  // Submit formData using HttpClient
-  this.http.post<any>('https://sheetdb.io/api/v1/ji7pkt21xb2c8', formData)
-    .subscribe({
-      next: response => {
-        console.log(response);
-        // Handle response as needed
-      },
-      error: error => {
-        console.error('Error:', error);
+// fetchData() {
+  //   this.productService.fetchSheetData().subscribe(
+    //     (data: any[]) => {
+      //       this.productList = data;
+      //     },
+      //     (error) => {
+        //       console.error('Error fetching data:', error);
+        //     }
+        //   )
+        // }
+        
+        
+        // fetchSheetData() {
+          //   this.productService.fetchSheetData().then((data) => {
+            //     this.sheetData = data;
+            //     console.log('Fetched data:', this.sheetData);
+            //   }).catch((error) => {
+              //     console.error('Error fetching data:', error);
+              //   });
+              // }
+              
+    onUpdate(){
+      const formData = new FormData();
+      formData.append('name', this.productObj.name);
+      formData.append('price', this.productObj.productPrice);
+      formData.append('image', this.productObj.productImageUrl);
+      formData.append('prodesc', this.productObj.description);
+      
+      // Submit formData using HttpClient
+      this.http.post<any>('https://sheetdb.io/api/v1/ji7pkt21xb2c8', formData)
+      .subscribe({
+        next: response => {
+          console.log(response);
+          // Handle response as needed
+        },
+        error: error => {
+          console.error('Error:', error);
+// Handle error
+}
+} );
+    }          
+              
+              submitForm() {
+                const formData = new FormData();
+                formData.append('name', this.productObj.name);
+                formData.append('price', this.productObj.productPrice);
+                formData.append('image', this.productObj.productImageUrl);
+                formData.append('prodesc', this.productObj.description);
+                
+                // Submit formData using HttpClient
+                this.http.post<any>('https://sheetdb.io/api/v1/ji7pkt21xb2c8', formData)
+                .subscribe({
+                  next: response => {
+                    console.log(response);
+                    // Handle response as needed
+                  },
+                  error: error => {
+                    console.error('Error:', error);
         // Handle error
       }
-     } );
-}
+    } );
+    
+  }
+  
+  onEdit(item:any){
+    this.productObj=item;
+    this.showAddProduct();
+  }
+
+
+
+// fetchData() {
+//   // Make a GET request to your SheetDB endpoint
+//   this.http.get<any>('https://sheetdb.io/api/v1/ji7pkt21xb2c8')
+//     .subscribe({
+//       next: response => {
+//         console.log(response);
+//         // Handle response as needed
+//       },
+//       error: error => {
+//         console.error('Error:', error);
+//         // Handle error
+//       }
+//     });
+// }
+
 
   showAddProduct(){
     this.isSidePanelVisible=true;
@@ -83,3 +162,7 @@ submitForm() {
     this.isSidePanelVisible=false;
   }
 }
+  function submitForm() {
+    throw new Error('Function not implemented.');
+  }
+
